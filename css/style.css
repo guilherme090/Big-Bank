@@ -1,0 +1,59 @@
+body{
+    background-color: rgb(0, 0, 30);
+    /* background-color: rgb(255, 81, 0); */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+}
+
+/* #title-page{
+    display: none;
+} */
+
+/* #cellphone-page{
+    display: none;
+} */
+
+.title-text{
+    display: block;
+    margin: auto;
+}
+
+.main-box{
+    background-color: rgb(209, 209, 209); 
+    color: black;
+    border-radius: 5px;
+    border-color: orange;
+    border-style: solid;
+    text-align: center;
+    font-size: x-large;
+}
+
+.options-area{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.btn-area{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.btn {
+    background-color: orange; 
+    color: black;
+    border-radius: 5px;
+    border-color: white;
+}
+
+.btn-yellow:hover {
+    background-color: rgb(251, 251, 34); 
+    color: darkgrey;
+}
