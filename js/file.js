@@ -29,6 +29,8 @@ let btnDeposit = document.querySelector('#btn-deposit');
 let btnCellphone = document.querySelector('#btn-cellphone');
 btnCellphone.onclick = cellphoneScreen;
 let btnTransfer = document.querySelector('#btn-transfer');
+let btnPay = document.querySelector('#btn-pay');
+btnPay.onclick = payScreen;
 
 // Cellphone deposit screen ------------------------------------------------------
 let cellphonePage = document.querySelector('#cellphone-page');
@@ -40,6 +42,8 @@ btnReturn1.onclick = mainScreen;
 
 // Pay debts screen --------------------------------------------------------------
 let payPage = document.querySelector('#pay-page');
+let btnReturn2 = document.querySelector('#btn-return-2');
+btnReturn2.onclick = mainScreen;
 
 // Transfer money page -----------------------------------------------------------
 let transferMoneyPage = document.querySelector('#transfer-money-page');
@@ -76,6 +80,14 @@ function cellphoneScreen(){
     titlePage.style.display = 'none';
     cellphonePage.style.display = 'block';
     payPage.style.display = 'none';
+    transferMoneyPage.style.display = 'none';
+}
+
+function payScreen(){
+    // Show pay page, hide others.
+    titlePage.style.display = 'none';
+    cellphonePage.style.display = 'none';
+    payPage.style.display = 'block';
     transferMoneyPage.style.display = 'none';
 }
 
