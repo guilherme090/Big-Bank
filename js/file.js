@@ -46,12 +46,12 @@ class Cliente {
         this._conta = newConta;
     }
 
-    get taken(){
-        return this._taken;
+    get numerosHistorico(){
+        return this._numerosHistorico;
     }
 
-    set taken(newTaken){
-        this._taken = newTaken;
+    set numerosHistorico(newNumerosHistorico){
+        this._numerosHistorico = newNumerosHistorico;
     }
 }
 
@@ -170,6 +170,12 @@ btnPay.onclick = payScreen;
 // Cellphone deposit screen ------------------------------------------------------
 let cellphonePage = document.querySelector('#cellphone-page');
 let cellphoneBox = document.querySelector('#cellphone-box');
+let btnNumber1 = document.querySelector('#btn-number-1'); // button in history
+let spanNumber1 = document.querySelector('#span-number-1'); // span in history
+let btnNumber2 = document.querySelector('#btn-number-2'); // button in history
+let spanNumber2 = document.querySelector('#span-number-2'); // span in history
+let btnNumber3 = document.querySelector('#btn-number-3'); // button in history
+let spanNumber3 = document.querySelector('#span-number-3'); // span in history
 let anotherNumberText = document.querySelector('#another-number-text');
 let btnAnotherNumber = document.querySelector('#btn-another-number');
 let btnReturn1 = document.querySelector('#btn-return-1');
@@ -216,7 +222,17 @@ initialization elements for cellphone credit deposits.
 
 function cellphoneScreen(){
 
+    spanNumber1.innerHTML = user.numerosHistorico[0].operadora + ' - ' + 
+    user.numerosHistorico[0].cidade + ' - ' +
+    user.numerosHistorico[0].ddd + user.numerosHistorico[0].numero;
 
+    spanNumber2.innerHTML = user.numerosHistorico[1].operadora + ' - ' + 
+    user.numerosHistorico[1].cidade + ' - ' +
+    user.numerosHistorico[1].ddd + user.numerosHistorico[1].numero;
+
+    spanNumber3.innerHTML = user.numerosHistorico[2].operadora + ' - ' + 
+    user.numerosHistorico[2].cidade + ' - ' +
+    user.numerosHistorico[2].ddd + user.numerosHistorico[2].numero;
 
     // Show cellphone page, hide others.
     titlePage.style.display = 'none';
