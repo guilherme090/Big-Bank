@@ -38,6 +38,14 @@ class Cliente {
         this._milhas = newMilhas;
     }
 
+    get conta(){
+        return this._conta;
+    }
+
+    set conta(newConta){
+        this._conta = newConta;
+    }
+
     get taken(){
         return this._taken;
     }
@@ -103,6 +111,30 @@ class ContaCorrente {
         this._saldo = saldo;
         this._poupancas = poupancas;
     }
+
+    get numero(){
+        return this._numero;
+    }
+
+    set numero(newNumero){
+        this._numero = newNumero;
+    }
+
+    get agencia(){
+        return this._agencia;
+    }
+
+    set agencia(newAgencia){
+        this._agencia = newAgencia;
+    }
+
+    get saldo(){
+        return this._saldo;
+    }
+
+    set saldo(newSaldo){
+        this._saldo = newSaldo;
+    }
 }
 
 /*
@@ -159,9 +191,13 @@ initialization elements for titlePage
 */
 
 function mainScreen(){
-    let theName = name + '<br><br>';
-    let theAccount = 'Agência: ' + branch + ' - ' + 'Conta: ' + account + '<br><br>'; 
-    let theBalance = 'Seu saldo: R$' + balance.toFixed(2);
+    let theName = user.nome + '<br><br>';
+    console.log(theName);
+    console.log(user.conta);
+    let theAccount = 'Agência: ' + user.conta.agencia + ' - ' + 'Conta: ' + user.conta.numero + '<br><br>'; 
+    console.log(theAccount);
+    let theBalance = 'Seu saldo: R$' + user.conta.saldo.toFixed(2);
+    console.log(theBalance);
     moneyBox.innerHTML = theName + theAccount + theBalance;
     
     // Show title page, hide others.
@@ -180,7 +216,7 @@ initialization elements for cellphone credit deposits.
 
 function cellphoneScreen(){
 
-    
+
 
     // Show cellphone page, hide others.
     titlePage.style.display = 'none';
