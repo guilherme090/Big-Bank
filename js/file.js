@@ -1,19 +1,122 @@
 /*
 ----------------------------------------------------------------------------------
+ACCOUNT DATA
+----------------------------------------------------------------------------------
+Client and account information to be directly manipulated by the program.
+*/
+
+class Cliente {
+    constructor(nome, rg, milhas, conta, numerosHistorico){
+        this._nome = nome;
+        this._rg = rg;
+        this._milhas = milhas;
+        this._conta = conta; // Client's main account from which the app is simulated.
+        this._numerosHistorico = numerosHistorico; // Contains last numbers that received credits via this app.
+    }
+
+    get nome(){
+        return this._nome;
+    }
+
+    set nome(newNome){
+        this._nome = newNome;
+    }
+
+    get rg(){
+        return this._rg;
+    }
+
+    set rg(newRg){
+        this._rg = newRg; 
+    }
+
+    get milhas(){
+        return this._milhas;
+    }
+
+    set milhas(newMilhas){
+        this._milhas = newMilhas;
+    }
+
+    get taken(){
+        return this._taken;
+    }
+
+    set taken(newTaken){
+        this._taken = newTaken;
+    }
+}
+
+class NumeroDeRecarga {
+    constructor(operadora, ddd, cidade, numero){
+        this._operadora = operadora;
+        this._ddd = ddd;
+        this._cidade = cidade;
+        this._numero = numero;
+    }
+
+    get operadora(){
+        return this._operadora;
+    }
+
+    set operadora(newOperadora){
+        this._operadora = newOperadora;
+    }
+
+    get ddd(){
+        return this._ddd;
+    }
+
+    set ddd(newDdd){
+        this._ddd = newDdd;
+    }
+
+    get cidade(){
+        return this._cidade;
+    }
+
+    set cidade(newCidade){
+        this._cidade = newCidade;
+    }
+
+    get numero(){
+        return this._numero;
+    }
+
+    set numero(newNumero){
+        this._numero = newNumero;
+    }
+
+    get cliente(){
+        return this._cliente;
+    }
+
+    set cliente(newCliente){
+        this._cliente = newCliente;
+    }
+}
+
+class ContaCorrente {
+    constructor(numero, agencia, saldo, poupancas){
+        this._numero = numero;
+        this._agencia = agencia;
+        this._saldo = saldo;
+        this._poupancas = poupancas;
+    }
+}
+
+/*
+----------------------------------------------------------------------------------
 Main variables
 ----------------------------------------------------------------------------------
 Store values that refer to the user's account at Big Bank
 */
-const INITIAL_NAME = 'Enzo Valentino da Silva';
-let name = INITIAL_NAME;
-const INITIAL_BRANCH = '012'
-const INITIAL_ACCOUNT = '4563-80'
-let branch = INITIAL_BRANCH;
-let account = INITIAL_ACCOUNT;
-const INITIAL_BALANCE = 2000.00; // initial balance to simulate an account
-let balance = INITIAL_BALANCE; 
-const HISTORY_MAX_LENGTH = 5;
-let phoneHistory = []; // will contain last transactions 
+const userHistory = []; //simulate initial history of transactions
+userHistory.push(new NumeroDeRecarga('ESCURO', '31', 'Belo Horizonte', '912300000'));
+userHistory.push(new NumeroDeRecarga('MAIA', '31', 'Belo Horizonte', '912398765'));
+userHistory.push(new NumeroDeRecarga('MORTO', '31', 'Betim', '912312345'));
+const userAccount = new ContaCorrente('4563-80', '012', 2000.00, ''); // simulate user's account
+const user = new Cliente('Enzo Valentino da Silva', 88888888, 1000, userAccount, userHistory);
 
 /*
 ----------------------------------------------------------------------------------
@@ -76,6 +179,9 @@ initialization elements for cellphone credit deposits.
 */
 
 function cellphoneScreen(){
+
+    
+
     // Show cellphone page, hide others.
     titlePage.style.display = 'none';
     cellphonePage.style.display = 'block';
