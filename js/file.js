@@ -267,6 +267,7 @@ Used to simulate different amounts of account balance.
 
 function depositMoney(){
     let amountToAdd = Number(window.prompt("Quanto deseja depositar na conta? Valores negativos irão REMOVER dinheiro da conta."));
+    if(amountToAdd == '') return;
     if(isNaN(amountToAdd)){
         alert('O valor digitado não é um número válido.');
     }else{
