@@ -175,6 +175,7 @@ function hideAll(pages){
 let titlePage = document.querySelector('#title-page');
 let moneyBox = document.querySelector('#money-box');
 let btnDeposit = document.querySelector('#btn-deposit');
+btnDeposit.onclick = depositMoney;
 let btnCellphone = document.querySelector('#btn-cellphone');
 btnCellphone.onclick = cellphoneScreen;
 let btnTransfer = document.querySelector('#btn-transfer');
@@ -255,6 +256,24 @@ function mainScreen(){
     // Show title page, hide others.
     hideAll(listOfPages);
     titlePage.style.display = 'block';
+}
+
+/*
+----------------------------------------------------------------------------------
+function depositMoney()
+----------------------------------------------------------------------------------
+Used to simulate different amounts of account balance.
+*/
+
+function depositMoney(){
+    let amountToAdd = Number(window.prompt("Quanto deseja depositar na conta? Valores negativos irão REMOVER dinheiro da conta."));
+    if(isNaN(amountToAdd)){
+        alert('O valor digitado não é um número válido.');
+    }else{
+        user.conta.saldo += amountToAdd;
+        alert("Saldo atualizado.");
+    }
+    mainScreen();
 }
 
 /*

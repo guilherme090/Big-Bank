@@ -57,3 +57,10 @@ body{
     background-color: rgb(251, 251, 34); 
     color: darkgrey;
 }
+
+#btn-deposit {
+    background-color: cyan; 
+    color: black;
+    border-radius: 5px;
+    border-color: white;
+}
