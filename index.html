@@ -25,13 +25,35 @@
                     <ul><button id='btn-number-2'>Depositar para este número</button> <span id='span-number-2'>NUMBER 2</span></ul>
                     <ul><button id='btn-number-3'>Depositar para este número</button> <span id='span-number-3'>NUMBER 3</span></ul>
                 </div>
-                <div class="options-area">
-                    Depositar para outro número de telefone (digite o número com DDD): 
-                    <input type="text" id="another-number-text"></input>
+                <div class="btn-area">
+                    <button class="btn" id="btn-another-number">Depositar para outro número de telefone</button>
+                    <button class="btn" id="btn-return-cellphone-1">Retornar ao menu principal</button>
+                </div>
+            </div>
+            <div class="page" id="cellphone-page-new-number">
+                <div class="main-box" id="cellphone-box-2">
+                    RECARGA DE TELEFONE CELULAR <br><br>
+                    Registrar novo número no histórico
+                    <ul><label>Cidade</label> <input type="text" id='newcellphone-city'></input></ul>
+                    <ul><label>Operadora</label> <input type="text" id='newcellphone-provider'></input></ul>
+                    <ul><label>DDD</label> <input type="text" id='newcellphone-code'></input></ul>
+                    <ul><label>Número</label> <input type="text" id='newcellphone-number'></input></ul>
                 </div>
                 <div class="btn-area">
-                    <button class="btn" id="btn-another-number">Depositar para este número</button>
-                    <button class="btn" id="btn-return-1">Retornar ao menu principal</button>
+                    <button class="btn" id="btn-ok">OK</button>
+                    <button class="btn" id="btn-return-cellphone-2">Retornar ao menu principal</button>
+                </div>
+            </div>
+            <div class="page" id="cellphone-page-credit-options">
+                <div class="main-box" id="cellphone-box-3">
+                    RECARGA DE TELEFONE CELULAR <br><br>
+                    <label id="credit-title">Valores de recarga para a operadora escolhida.</label>
+                    <ul><button id='btn-value-1'>Recarregar este valor</button> <span id='span-value-1'>NUMBER 1</span></ul>
+                    <ul><button id='btn-value-2'>Recarregar este valor</button> <span id='span-value-2'>NUMBER 2</span></ul>
+                    <ul><button id='btn-value-3'>Recarregar este valor</button> <span id='span-value-3'>NUMBER 3</span></ul>
+                </div>
+                <div class="btn-area">
+                    <button class="btn" id="btn-return-cellphone-3">Retornar ao menu principal</button>
                 </div>
             </div>
             <div class="page" id="pay-page">
@@ -41,7 +63,7 @@
                 </div>
                 <div class="btn-area">
                     <button class="btn" id="btn-another-number">Digitar código de barras</button>
-                    <button class="btn" id="btn-return-2">Retornar ao menu principal</button>
+                    <button class="btn" id="btn-return-pay-1">Retornar ao menu principal</button>
                 </div>
             </div>
             <div class="page" id="transfer-money-page">
