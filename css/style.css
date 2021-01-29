@@ -13,6 +13,10 @@ body{
     display: none;
 } */
 
+.page{
+    display: none;
+}
+
 .title-text{
     display: block;
     margin: auto;
