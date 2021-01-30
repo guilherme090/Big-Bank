@@ -148,7 +148,7 @@ Provider values
 ----------------------------------------------------------------------------------
 Store provider-related information such as possible cellphone credit values
 */
-let creditValues = [['ESCURO', 20, 40, 80],['MORTO', 30, 50, 90], ['TCHAU', 10, 20, 50],
+let creditValues = [['ESCURO', 10, 50, 75],['MORTO', 30, 50, 90], ['TCHAU', 20, 40, 80],
 ['MAIA', 50, 70, 100]];
 let value1 = null; // will receive the value according to the chosen provider.
 let value2 = null; // will receive the value according to the chosen provider.
@@ -391,16 +391,19 @@ function recharge(rechargeValue){
     // Check if user account has enough money and conclude the operation.
     if(user.conta.saldo < rechargeValue){
         alert('Seu saldo é insuficiente para completar a operação escolhida.');
+        cellphoneScreen();
     }else{
         let confirmation = window.prompt('Você tem certeza? Digite sua senha ou posicione seu dedo no leitor biométrico para confirmar.');
         if(confirmation == '12345'){
             user.conta.saldo = user.conta.saldo - rechargeValue;
             alert('Operação concluída com sucesso.');
+            mainScreen();
         }else{
             alert('Senha incorreta. A operação não pôde ser concluída.');
+            cellphoneScreen();
         }
     }
-    mainScreen();
+    
 }
 
 function payScreen(){
