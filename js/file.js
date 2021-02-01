@@ -156,6 +156,18 @@ let value3 = null; // will receive the value according to the chosen provider.
 
 /*
 ----------------------------------------------------------------------------------
+Billet values
+----------------------------------------------------------------------------------
+Store possible values for billets that are typed in by the user
+*/
+let billetValues = [['123456789123456', 50, 'Maria da Conceição', '2021-12-13'],['874236587412569', 100, 'José Carlos Fernandes', '2021-02-21'], 
+['784520013547800', 20, 'Carlos Henrique do Val', '2021-05-04'], ['754111236987452', 90, 'Irene Josefina do Carmo', '2021-06-07']];
+let billetValue = null; // will receive the value according to the chosen provider.
+let billetName = null; // will receive the value according to the chosen provider.
+let billetDate = null; // will receive the value according to the chosen provider.
+
+/*
+----------------------------------------------------------------------------------
 HTML ELEMENTS
 ----------------------------------------------------------------------------------
 HTML tags to be controlled
@@ -229,8 +241,25 @@ btnReturnCellphone3.onclick = mainScreen;
 
 // Pay debts screen --------------------------------------------------------------
 let payPage = document.querySelector('#pay-page');
+let btnTypeBarcode = document.querySelector('#btn-type-barcode');
+btnTypeBarcode.onclick = getBillet;
 let btnReturnPay1 = document.querySelector('#btn-return-pay-1');
 btnReturnPay1.onclick = mainScreen;
+
+// Pay debts confirm payment screen ----------------------------------------------
+let confirmBilletPayment = document.querySelector('#confirm-billet-payment');
+let spanBilletValue = document.querySelector('#span-billet-value');
+let spanBilletDestination = document.querySelector('#span-billet-destination');
+let billetPaymentDate = document.querySelector('#billet-payment-date');
+billetPaymentDate.onchange = paymentDateChanged;
+billetPaymentDate.value = "1999-01-01"; //change value to activate paymentDateChanged
+paymentDateChanged();
+let spanBilletDate = document.querySelector('#span-billet-date');
+spanBilletDate.disabled = true;
+let btnOKPay = document.querySelector('#btn-ok-pay');
+btnOKPay.onclick = payDebt;
+let btnReturnPay2 = document.querySelector('#btn-return-pay-2'); 
+btnReturnPay2.onclick = mainScreen;
 
 // Transfer money page -----------------------------------------------------------
 let transferMoneyPage = document.querySelector('#transfer-money-page');
@@ -402,15 +431,90 @@ function recharge(rechargeValue){
             alert('Senha incorreta. A operação não pôde ser concluída.');
             cellphoneScreen();
         }
-    }
-    
+    }  
 }
+
+/*
+----------------------------------------------------------------------------------
+PAY DEBTS PAGE
+----------------------------------------------------------------------------------
+initialization elements for billet paying.
+Pay billet or tax use case
+*/
 
 function payScreen(){
     // Show pay page, hide others.
     hideAll(listOfPages);
     payPage.style.display = 'block';
 
+}
+
+function confirmScreen(){
+    // Show confirm payment page, hide others.
+    hideAll(listOfPages);
+    confirmBilletPayment.style.display = 'block';
+    spanBilletValue.innerHTML = 'R$ ' + Number(billetValue).toFixed(2);
+    spanBilletDestination.innerHTML = billetName;
+    console.log(billetDate);
+    spanBilletDate.value = billetDate;
+}
+
+function paymentDateChanged(){
+    // Check if date from input is in the past. If it is, change it to current date.
+    theDateComplete = new Date();
+    theYear = theDateComplete.getFullYear();
+    theMonth = theDateComplete.getMonth() + 1;
+    if (theMonth < 10){
+        theMonth = '0' + theMonth;
+    }
+    theDate = theDateComplete.getDate();
+    if (theDate < 10){
+        theDate = '0' + theDate;
+    }
+    theDateFormatted =  theYear + '-' + theMonth + '-' + theDate;
+    // alert(billetPaymentDate.value + " <> " + theDateFormatted);
+    if(billetPaymentDate.value < theDateFormatted){
+        billetPaymentDate.value = theDateFormatted;
+    }
+}
+
+function getBillet(){
+    let code = window.prompt('Digite o número do boleto a ser pago.');
+
+    // look for code in the list of billets
+    let billetFound = null;
+    for(let i = 0; i < billetValues.length; i++){
+        if(code.normalize() == billetValues[i][0]){
+            billetFound = i;
+            billetValue = billetValues[i][1];
+            billetName = billetValues[i][2];
+            billetDate = billetValues[i][3];
+        }
+    }
+    if(billetFound == null){
+        alert('Boleto não encontrado no sistema. Tente novamente.');
+        mainScreen();
+    }else{
+        confirmScreen();
+    }
+}
+
+function payDebt(){
+    // Check if user account has enough money and conclude the operation.
+    if(user.conta.saldo < billetValue){
+        alert('Seu saldo é insuficiente para completar a operação escolhida.');
+        payScreen();
+    }else{
+        let confirmation = window.prompt('Você tem certeza? Digite sua senha ou posicione seu dedo no leitor biométrico para confirmar.');
+        if(confirmation == '12345'){
+            user.conta.saldo = user.conta.saldo - billetValue;
+            alert('Operação concluída com sucesso.');
+            mainScreen();
+        }else{
+            alert('Senha incorreta. A operação não pôde ser concluída.');
+            payScreen();
+        }
+    }
 }
 
 mainScreen();
