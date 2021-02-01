@@ -62,8 +62,22 @@
                     Posicione a câmera do seu celular de forma a enquadrar o código de barras.
                 </div>
                 <div class="btn-area">
-                    <button class="btn" id="btn-another-number">Digitar código de barras</button>
+                    <button class="btn" id="btn-type-barcode">Digitar código de barras</button>
                     <button class="btn" id="btn-return-pay-1">Retornar ao menu principal</button>
+                </div>
+            </div>
+            <div class="page" id="confirm-billet-payment">
+                <div class="main-box" id="pay-page-box-2">
+                    PAGAMENTO DE BOLETO OU IMPOSTO <br><br>
+                    Informações de pagamento
+                    <ul><label>Valor: </label> <span id='span-billet-value'></input></ul>
+                    <ul><label>Beneficiário: </label> <span id='span-billet-destination'></input></ul>
+                    <ul><label>Data de pagamento: </label> <input type="date" id='billet-payment-date'></input></ul>
+                    <ul><label>Data de vencimento: </label> <input type="date" id='span-billet-date'></input></ul>
+                </div>
+                <div class="btn-area">
+                    <button class="btn" id="btn-ok-pay">Confirmar e efetuar pagamento</button>
+                    <button class="btn" id="btn-return-pay-2">Retornar ao menu principal</button>
                 </div>
             </div>
             <div class="page" id="transfer-money-page">
