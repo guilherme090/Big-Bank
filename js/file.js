@@ -168,6 +168,15 @@ let billetDate = null; // will receive the value according to the chosen provide
 
 /*
 ----------------------------------------------------------------------------------
+External transfer values
+----------------------------------------------------------------------------------
+Store data regarding money transfers to another banks
+*/
+let transactionType = null; // TED or DOC
+let destinationBank = null; // Name of a Brazilian bank
+
+/*
+----------------------------------------------------------------------------------
 HTML ELEMENTS
 ----------------------------------------------------------------------------------
 HTML tags to be controlled
@@ -191,6 +200,7 @@ btnDeposit.onclick = depositMoney;
 let btnCellphone = document.querySelector('#btn-cellphone');
 btnCellphone.onclick = cellphoneScreen;
 let btnTransfer = document.querySelector('#btn-transfer');
+btnTransfer.onclick = transferScreen;
 let btnPay = document.querySelector('#btn-pay');
 btnPay.onclick = payScreen;
 
@@ -263,6 +273,35 @@ btnReturnPay2.onclick = mainScreen;
 
 // Transfer money page -----------------------------------------------------------
 let transferMoneyPage = document.querySelector('#transfer-money-page');
+let btnBigBankTransfer = document.querySelector('#btn-big-bank-transfer');
+btnBigBankTransfer.onclick = transferToBigBank;
+let btnAnotherBankTransfer = document.querySelector('#btn-another-bank-transfer');
+btnAnotherBankTransfer.onclick = transferToAnotherBank;
+let btnReturnTransfer = document.querySelector('#btn-return-transfer');
+btnReturnTransfer.onclick = mainScreen;
+
+// Transfer money (other banks) page ---------------------------------------------
+let transferMoneyTedDocPage = document.querySelector('#transfer-money-ted-doc');
+let comboTransferType = document.querySelector('#combo-transfer-type');
+let comboDestinationBank = document.querySelector('#combo-destination-bank');
+let btnConfirmTransfer = document.querySelector('#btn-confirm-transfer');
+btnConfirmTransfer.onclick = confirmAnotherBank;
+let btnReturnTransfer2 = document.querySelector('#btn-return-transfer-2');
+btnReturnTransfer2.onclick = mainScreen;
+
+// Transaction details page ------------------------------------------------------
+let transactionDetailsPage = document.querySelector('#transaction-details');
+let transactionDetailsValue = document.querySelector('#transaction-details-value');
+let transactionDetailsName = document.querySelector('#transaction-details-name');
+let transactionDetailsCpf = document.querySelector('#transaction-details-cpf');
+let transactionDetailsBank = document.querySelector('#transaction-details-bank');
+let comboAccountyType = document.querySelector('#combo-account-type');
+let transactionDetailsAg = document.querySelector('#transaction-details-ag');
+let transactionDetailsNo = document.querySelector('#transaction-details-no');
+let btnConfirmTransfer2 = document.querySelector('#btn-confirm-transfer-2');
+btnConfirmTransfer2.onclick = transferMoney;
+let btnReturnTransfer3 = document.querySelector('#btn-return-transfer-3');
+btnReturnTransfer3.onclick = mainScreen;
 
 /*
 ----------------------------------------------------------------------------------
@@ -513,6 +552,78 @@ function payDebt(){
         }else{
             alert('Senha incorreta. A operação não pôde ser concluída.');
             payScreen();
+        }
+    }
+}
+
+/*
+----------------------------------------------------------------------------------
+TRANSFER MONEY PAGE
+----------------------------------------------------------------------------------
+initialization elements for money transferring.
+Big Bank to Big Bank or Big Bank to another bank.
+*/
+
+function transferScreen(){
+
+    // Show trasnfer money page, hide others.
+    hideAll(listOfPages);
+    transferMoneyPage.style.display = 'block';
+}
+
+function transferToBigBank(){
+    destinationBank = 'Big Bank';
+    transactionDetailsScreen();
+}
+
+function transferToAnotherBank(){
+    // Show trasnfer money page, hide others.
+    hideAll(listOfPages);
+    transferMoneyTedDocPage.style.display = 'block';
+}
+
+function confirmAnotherBank(){
+    transactionType = comboTransferType.value;
+    destinationBank = comboDestinationBank.value;
+    if(transactionType === 'DOC'){
+        transactionDetailsValue.max = 4999.99;
+    }else{
+        transactionDetailsValue.max = '';
+    }
+    transactionDetailsScreen();
+}
+
+function transactionDetailsScreen(){
+    transactionDetailsBank.innerHTML = destinationBank;
+    // Show transaction details page, hide others.
+    hideAll(listOfPages);
+    transactionDetailsPage.style.display = 'block';
+}
+
+function transferMoney(){
+    // Check if any fields are invalid
+
+
+    // Check if transaction values were exceeded for transaction type
+    // DOC (max) = R$4999.99
+    if(transactionType === 'DOC' && transactionDetailsValue.value > 4999.99){
+        alert('Não é possível realizar uma transferência DOC de um valor maior que R$4999,99.');
+        transactionDetailsScreen();
+    }
+
+    // Check if user account has enough money and conclude the operation.
+    if(user.conta.saldo < transactionDetailsValue.value){
+        alert('Seu saldo é insuficiente para completar a operação escolhida.');
+        transactionDetailsScreen();
+    }else{
+        let confirmation = window.prompt('Você tem certeza? Digite sua senha ou posicione seu dedo no leitor biométrico para confirmar.');
+        if(confirmation == '12345'){
+            user.conta.saldo = user.conta.saldo - Number(transactionDetailsValue.value).toFixed(2);
+            alert('Operação concluída com sucesso.');
+            mainScreen();
+        }else{
+            alert('Senha incorreta. A operação não pôde ser concluída.');
+            transactionDetailsScreen();
         }
     }
 }

@@ -81,11 +81,63 @@
                 </div>
             </div>
             <div class="page" id="transfer-money-page">
-                
+                <div class="main-box" id="transfer-money-box">
+                    TRANSFERIR DINHEIRO <br><br>
+                    Você deseja transferir dinheiro entre contas Big Bank ou para outros bancos? <br><br>
+                    <button class="btn" id="btn-big-bank-transfer">Transferir para conta Big Bank</button> <br>
+                    <button class="btn" id="btn-another-bank-transfer">Transferir para outro banco</button> <br><br>
+                </div>
+                <div class="btn-area">                  
+                    <button class="btn" id="btn-return-transfer">Retornar ao menu principal</button>
+                </div>
             </div>
+            <div class="page" id="transfer-money-ted-doc">
+                <div class="main-box" id="transfer-money-ted-doc-box">
+                    TRANSFERIR DINHEIRO <br><br>
+                    Informações de transferência <br><br>
+                    <ul><label>Tipo de transferência: </label> 
+                        <select id="combo-transfer-type">
+                            <option value="TED">TED</option>
+                            <option value="DOC">DOC</option>
+                        </select>
+                    </ul>
+                    <ul><label>Banco do beneficiário: </label> 
+                        <select id="combo-destination-bank">
+                            <option value="Banco do Brasileiro">Banco do Brasileiro</option>
+                            <option value="Baú Econômico Federal">Baú Econômico Federal</option>
+                        </select>
+                    </ul>
+                </div>
+                <div class="btn-area">     
+                    <button class="btn" id="btn-confirm-transfer">Confirmar</button>             
+                    <button class="btn" id="btn-return-transfer-2">Retornar ao menu principal</button>
+                </div>
+            </div>
+            <div class="page" id="transaction-details">
+                <div class="main-box" id="transaction-details-box">
+                    TRANSFERIR DINHEIRO <br><br>
+                    Informações de transferência <br><br>
+                    <ul><label>Valor: </label> R$ <input type="number" id='transaction-details-value'></input></ul>
+                    <ul><label>Nome do beneficiário: </label> <input type="text" id='transaction-details-name'></input></ul>
+                    <ul><label>CPF do Beneficiário: </label> <input type="text" id='transaction-details-cpf'></input></ul>
+                    <ul><label>Banco do Beneficiário: </label> <span type="text" id='transaction-details-bank'>Big Bank</span></ul>
+                    <ul><label>Tipo de conta do beneficiário: </label> 
+                        <select id="combo-account-type">
+                            <option value="Poupança">Poupança</option>
+                            <option value="Conta-corrente">Conta-corrente</option>
+                        </select>
+                    </ul>
+                    <ul><label>Número da agência: </label> <input type="text" id='transaction-details-ag'></input></ul>
+                    <ul><label>Número da conta: </label> <input type="text" id='transaction-details-no'></input></ul>
+                </div>
+                <div class="btn-area">     
+                    <button class="btn" id="btn-confirm-transfer-2">Confirmar e efetuar transferência</button>             
+                    <button class="btn" id="btn-return-transfer-3">Retornar ao menu principal</button>
+                </div>
+            </div>
+
             <!-- Controlling index.html itself -->
             <script src="js/file.js"></script> 
-            
         </body>
     </head>
 </html>
