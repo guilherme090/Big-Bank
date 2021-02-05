@@ -386,7 +386,7 @@ function anotherNumberScreen(){
 }
 
 function registerPhone(){
-
+    // check for empty fields.
     let cellphoneErrorMessage = '';
     if(newCity.value == ''){
         cellphoneErrorMessage += 'Especifique a cidade do número a ser registrado.\n';
