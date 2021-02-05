@@ -386,21 +386,41 @@ function anotherNumberScreen(){
 }
 
 function registerPhone(){
-    // ask for user's confirmation (user has to retype the number).
-    let confirmation = window.prompt('Digite novamente o número desejado com DDD para confirmar.');
+
+    let cellphoneErrorMessage = '';
+    if(newCity.value == ''){
+        cellphoneErrorMessage += 'Especifique a cidade do número a ser registrado.\n';
+    }
+    if(newProvider.value == ''){
+        cellphoneErrorMessage += 'Especifique a operadora do número a ser registrado.\n';
+    }
+    if(newCode.value == '' || !(Number.isSafeInteger(Number(newCode.value)))){
+        cellphoneErrorMessage += 'O código DDD digitado contém caracteres não numéricos ou não foi informado.\n';
+    }
+    if(newNumber.value == '' || !(Number.isSafeInteger(Number(newNumber.value)))){
+        cellphoneErrorMessage += 'O número de telefone digitado contém caracteres não numéricos ou não foi informado.\n';
+    }
+    if(cellphoneErrorMessage != ''){
+        alert(cellphoneErrorMessage);
+        cellphoneErrorMessage = '';
+        cellphoneScreen();
+    }else{
+        // ask for user's confirmation (user has to retype the number).
+        let confirmation = window.prompt('Digite novamente o número desejado com DDD para confirmar.');
         if(confirmation.normalize() == (newCode.value + newNumber.value).normalize()){
             alert('Operação concluída com sucesso.');
         }else{
             alert('Os números não conferem. A operação não pôde ser concluída.');
             return;
         }
-    // rearrange the history from newer to older while getting the new number.
-    userHistory[2] = new NumeroDeRecarga(userHistory[1].operadora, userHistory[1].ddd, userHistory[1].cidade, userHistory[1].numero);
-    userHistory[1] = new NumeroDeRecarga(userHistory[0].operadora, userHistory[0].ddd, userHistory[0].cidade, userHistory[0].numero);
-    userHistory[0] = new NumeroDeRecarga(newProvider.value.toUpperCase(), newCode.value, newCity.value, newNumber.value);
+        // rearrange the history from newer to older while getting the new number.
+        userHistory[2] = new NumeroDeRecarga(userHistory[1].operadora, userHistory[1].ddd, userHistory[1].cidade, userHistory[1].numero);
+        userHistory[1] = new NumeroDeRecarga(userHistory[0].operadora, userHistory[0].ddd, userHistory[0].cidade, userHistory[0].numero);
+        userHistory[0] = new NumeroDeRecarga(newProvider.value.toUpperCase(), newCode.value, newCity.value, newNumber.value);
 
-    // go back to the previous screen
-    cellphoneScreen();
+        // go back to the previous screen
+        cellphoneScreen();
+    }
 }
 
 function showOptions1(){
@@ -573,6 +593,7 @@ function transferScreen(){
 
 function transferToBigBank(){
     destinationBank = 'Big Bank';
+    transactionDetailsValue.max = '';
     transactionDetailsScreen();
 }
 
@@ -602,28 +623,43 @@ function transactionDetailsScreen(){
 
 function transferMoney(){
     // Check if any fields are invalid
-
-
-    // Check if transaction values were exceeded for transaction type
-    // DOC (max) = R$4999.99
-    if(transactionType === 'DOC' && transactionDetailsValue.value > 4999.99){
-        alert('Não é possível realizar uma transferência DOC de um valor maior que R$4999,99.');
-        transactionDetailsScreen();
+    let errorMessage = '';
+    if(transactionDetailsName.value == ''){
+        errorMessage += 'O campo de nome se encontra em branco.\n';
     }
-
-    // Check if user account has enough money and conclude the operation.
-    if(user.conta.saldo < transactionDetailsValue.value){
-        alert('Seu saldo é insuficiente para completar a operação escolhida.');
+    if(!(Number.isSafeInteger(Number(transactionDetailsCpf.value)))){
+        errorMessage += 'O CPF digitado contém caracteres não numéricos ou não foi informado.\n';
+    }
+    if(transactionDetailsAg.value == ''){
+        errorMessage += 'Especifique o número da agência destino da operação.\n';
+    }
+    if(transactionDetailsNo.value == ''){
+        errorMessage += 'Especifique o número da conta destino da operação.\n';
+    }
+    if(errorMessage != ''){
+        alert(errorMessage);
+        errorMessage = '';
         transactionDetailsScreen();
     }else{
-        let confirmation = window.prompt('Você tem certeza? Digite sua senha ou posicione seu dedo no leitor biométrico para confirmar.');
-        if(confirmation == '12345'){
-            user.conta.saldo = user.conta.saldo - Number(transactionDetailsValue.value).toFixed(2);
-            alert('Operação concluída com sucesso.');
-            mainScreen();
-        }else{
-            alert('Senha incorreta. A operação não pôde ser concluída.');
+        // Check if transaction values were exceeded for transaction type
+        // DOC (max) = R$4999.99
+        if(transactionType === 'DOC' && transactionDetailsValue.value > 4999.99){
+            alert('Não é possível realizar uma transferência DOC de um valor maior que R$4999,99.');
             transactionDetailsScreen();
+        }else if(user.conta.saldo < transactionDetailsValue.value){
+            // Check if user account has enough money and conclude the operation.
+            alert('Seu saldo é insuficiente para completar a operação escolhida.');
+            transactionDetailsScreen();
+        }else{
+            let confirmation = window.prompt('Você tem certeza? Digite sua senha ou posicione seu dedo no leitor biométrico para confirmar.');
+            if(confirmation == '12345'){
+                user.conta.saldo = user.conta.saldo - Number(transactionDetailsValue.value).toFixed(2);
+                alert('Operação concluída com sucesso.');
+                mainScreen();
+            }else{
+                alert('Senha incorreta. A operação não pôde ser concluída.');
+                transactionDetailsScreen();
+            }
         }
     }
 }
