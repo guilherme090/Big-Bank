@@ -552,7 +552,7 @@ function getBillet(){
     }
     if(billetFound == null){
         alert('Boleto não encontrado no sistema. Tente novamente.');
-        mainScreen();
+        payScreen();
     }else{
         confirmScreen();
     }
